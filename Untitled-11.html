@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C PROGRAMMING</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+    body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    background-size: cover;
+    background-position: center center;
+    font-family: 'Cinzel', serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: black;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    
+}
+canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Behind all content */
+        }
+
+        /* Hide mobile notification on desktop */
+        .mobile-notification {
+            display: none;
+            background-color: #222;
+            color: rgb(5, 5, 5);
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        /* For Mobile Devices */
+        @media only screen and (max-width: 768px) {
+            /* Adjust for mobile layout */
+            .mobile-notification {
+                display: block;
+                transform: translateY(0);
+            }
+
+            header img {
+                display: none;
+            }
+
+            nav {
+                flex-direction: column;
+            }
+
+            .image-links, .additional-image-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .image-links a, .additional-image-links a {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            height: 100px;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        img {
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        header img:hover {
+            transform: scale(1.05);
+        }
+
+        .caption {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white; /* White text for better contrast */
+    font-family: 'Cinzel', serif;
+    font-size: 50px; /* Increased font size */
+    font-weight: bold; /* Make the text bolder */
+    letter-spacing: 10px; /* Wider spacing between letters */
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 
+                 0 0 30px rgba(0, 0, 0, 0.6), 
+                 0 0 50px rgba(0, 0, 0, 0.4); /* Stronger shadow for visibility */
+    
+    padding: 10px 20px; /* Add some padding around the text */
+    border-radius: 10px; /* Slight rounded corners */
+    animation: fadeIn 2s ease-out forwards, slideUp 2s ease-out forwards; /* Combined animation */
+    opacity: 0; /* Start as invisible */
+    pointer-events: none; /* Prevent interaction */
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -150%);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        nav {
+            
+            background-size: cover;
+            background-position: center center;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            color: black;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.6);
+            opacity: 0.9;
+            animation: fadeIn 1s forwards;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        nav:hover {
+            transform: translateY(0);
+        }
+
+        nav a {
+            
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    margin: 0 20px;
+    padding: 10px 100px;
+    text-transform: uppercase;
+    font-weight: bold;
+    position: relative;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s, opacity 0.3s;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8), 
+                 0 0 10px rgba(0, 0, 0, 0.6), 
+                 0 0 15px rgba(0, 0, 0, 0.4); /* Black glow effect */
+}
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: darkred;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+    background-color: rgb(250, 244, 244);
+    color: white;
+    transform: scale(1.1);
+    opacity: 0.9;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 1), 
+                 0 0 30px rgba(0, 0, 0, 0.9), 
+                 0 0 40px rgba(0, 0, 0, 0.8); /* Stronger black glow effect */
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .image-links, .additional-image-links {
+            display: flex;
+            justify-content: space-around;
+            padding: 30px 0;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .image-links a, .additional-image-links a {
+            display: block;
+            width: 30%;
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            position: relative;
+        }
+
+        .image-links a img, .additional-image-links a img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.4s ease;
+        }
+
+        .image-links a:hover img, .additional-image-links a:hover img {
+            opacity: 0.8;
+        }
+
+        .image-links a:hover, .additional-image-links a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+        }
+
+        .image-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: black;
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .image-links a:hover .image-title, .additional-image-links a:hover .image-title {
+            opacity: 1;
+        }
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            margin-top: auto;
+        }
+
+        footer:hover {
+            background-color: darkred;
+        }
+
+        footer p {
+            transition: transform 0.3s ease;
+        }
+
+        footer:hover p {
+            transform: scale(1.1);
+        }
+        
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+   
+    <!-- Mobile Notification (Visible on Mobile) -->
+    <div class="mobile-notification">
+        You are in mobile view! Switch to desktop mode for a better experience.
+    </div>
+
+    <header>
+       
+        <img src="images/dual-screen-background-wallpaper-preview.jpg" onerror="this.src='https://via.placeholder.com/150'" alt="Header Background Image" style="flex-grow: 1; height: 100%; object-fit: cover;">
+        <div class="caption">C PROGRAMMING</div>
+        
+    
+        <div class="caption">C PROGRAMMING</div>
+    </header>
+
+    <nav>
+        <canvas id="matrix"></canvas>
+        <a href="">HOME</a>
+        <a href="">TUTORIALS</a>
+        <a href="">SERVICES</a>
+        <a href="">ABOUT US</a>
+        
+    </nav>
+    
+    <div class="image-links">
+        <a href="https://t.me/+99wL_dj1nNk1MWVl" class="image-link">
+            <img src="https://moviehub07.neocities.org/wwwwww/images/c1.jpg" onerror="this.src='https://via.placeholder.com/250'" alt="Image 1">
+            <div class="image-title">BASICS</div>
+        </a>
+        <a href="https://t.me/+rjf77Ie8hRs1ZGY9" class="image-link">
+            <img src="https://moviehub07.neocities.org/wwwwww/images/c2.jpg" onerror="this.src='https://via.placeholder.com/250'" alt="Image 2">
+            <div class="image-title">FUNCTIONS</div>
+        </a>
+        <a href="https://t.me/+bpX_w7cbKRAyMTM1" class="image-link">
+            <img src="https://moviehub07.neocities.org/wwwwww/images/c3.jpg" onerror="this.src='https://via.placeholder.com/250'" alt="Image 3">
+            <div class="image-title">STRUCTURES</div>
+        </a>
+    </div>
+
+    <div class="additional-image-links">
+        <a href="https://t.me/+eFwx5YEjNLljMDVl" class="image-link">
+            <img src="https://moviehub07.neocities.org/wwwwww/images/c4.jpg" onerror="this.src='https://via.placeholder.com/250'" alt="Image 4">
+            <div class="image-title">FILES</div>
+        </a>
+        <a href="https://t.me/+mWC1yb3EZns4NWI9" class="image-link">
+            <img src="https://moviehub07.neocities.org/wwwwww/images/c5.jpg" onerror="this.src='https://via.placeholder.com/250'" alt="Image 5">
+            <div class="image-title">CONTROL STATEMENTS</div>
+        </a>
+        <a href="https://t.me/+at_Dj4kMprdlY2Q1" class="image-link">
+            <img src="https://moviehub07.neocities.org/wwwwww/images/c6.jpg" onerror="this.src='https://via.placeholder.com/250'" alt="Image 6">
+            <div class="image-title">STRINGS</div>
+        </a>
+    </div>
+    <div class="additional-image-links">
+        <a href="https://t.me/+eFwx5YEjNLljMDVl" class="image-link">
+            <img src="https://moviehub07.neocities.org/wwwwww/images/c7.jpg" onerror="this.src='https://via.placeholder.com/250'" alt="Image 4">
+            <div class="image-title">OPERATIONS</div>
+        </a>
+        <a href="https://t.me/+mWC1yb3EZns4NWI9" class="image-link">
+            <img src="https://moviehub07.neocities.org/wwwwww/images/c8.jpg" onerror="this.src='https://via.placeholder.com/250'" alt="Image 5">
+            <div class="image-title">MEMORY</div>
+        </a>
+        <a href="https://t.me/+at_Dj4kMprdlY2Q1" class="image-link">
+            <img src="https://moviehub07.neocities.org/wwwwww/images/c9.jpg" onerror="this.src='https://via.placeholder.com/250'" alt="Image 6">
+            <div class="image-title">VARIABLES</div>
+        </a>
+    </div>
+    <div class="additional-image-links">
+        <a href="https://t.me/+eFwx5YEjNLljMDVl" class="image-link">
+            <img src="https://moviehub07.neocities.org/wwwwww/images/c10.jpg" onerror="this.src='https://via.placeholder.com/250'" alt="Image 4">
+            <div class="image-title">DATA TYPES</div>
+        </a>
+        <a href="https://t.me/+mWC1yb3EZns4NWI9" class="image-link">
+            <img src="https://moviehub07.neocities.org/wwwwww/images/c11.jpg" onerror="this.src='https://via.placeholder.com/250'" alt="Image 5">
+            <div class="image-title">ENUMS</div>
+        </a>
+        <a href="https://t.me/+at_Dj4kMprdlY2Q1" class="image-link">
+            <img src="https://moviehub07.neocities.org/wwwwww/images/c12.jpg" onerror="this.src='https://via.placeholder.com/250'" alt="Image 6">
+            <div class="image-title">EXAMPLES</div>
+        </a>
+    </div>
+
+    <footer>
+        <p>POWERED BY <b>THEMOVIESHUB</b></p>
+       All of the free movies found on this website are hosted on third-party servers that are freely available to watch online for all internet users.
+Any legal issues regarding the free online movies on this website should be taken up with the actual file hosts themselves, as we're not affiliated with them.
+<script>
+    // Matrix effect
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%க, ங, ச, ஞ, ட, ண, த, ந, ப, ம, ய, ர, ல, வ, ள, ழ, ர, ன ..."; // Your characters here
+    const fontSize = 20;
+    const columns = canvas.width / fontSize;
+
+    const drops = Array.from({ length: columns }, () => 1);
+
+    function drawMatrix() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = 'darkred';
+        ctx.font = `${fontSize}px monospace`;
+
+        drops.forEach((y, i) => {
+            const text = letters.charAt(Math.floor(Math.random() * letters.length));
+            ctx.fillText(text, i * fontSize, y * fontSize);
+
+            if (y * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        });
+    }
+
+    setInterval(drawMatrix, 50);
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+</script>
+</body>
